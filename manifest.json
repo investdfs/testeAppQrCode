@@ -10,25 +10,25 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://placehold.co/192x192/10b981/ffffff.png?text=QR",
+      "src": "https://placehold.co/192x192/10b981/ffffff.png?text=QR&v=3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://placehold.co/512x512/10b981/ffffff.png?text=QR",
+      "src": "https://placehold.co/512x512/10b981/ffffff.png?text=QR&v=3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://placehold.co/192x192/10b981/ffffff.png?text=QR",
+      "src": "https://placehold.co/192x192/10b981/ffffff.png?text=QR&v=3",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "https://placehold.co/512x512/10b981/ffffff.png?text=QR",
+      "src": "https://placehold.co/512x512/10b981/ffffff.png?text=QR&v=3",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -37,7 +37,7 @@
   "categories": ["utilities", "productivity"],
   "screenshots": [
     {
-        "src": "https://placehold.co/750x1334/1e293b/ffffff.png?text=Tela+Inicial",
+        "src": "https://placehold.co/750x1334/1e293b/ffffff.png?text=Tela+Inicial&v=3",
         "sizes": "750x1334",
         "type": "image/png",
         "form_factor": "narrow",
