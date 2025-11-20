@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qr-scan-pro-v1';
+const CACHE_NAME = 'qr-scan-pro-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
@@ -9,6 +9,7 @@ const URLS_TO_CACHE = [
 
 // Install event: Cache core assets
 self.addEventListener('install', (event) => {
+  self.skipWaiting(); // Força o SW a ativar imediatamente
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -30,12 +31,17 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // Controla a página imediatamente
   );
 });
 
-// Fetch event: Stale-while-revalidate strategy for most reliable offline-first experience
+// Fetch event: Stale-while-revalidate strategy
 self.addEventListener('fetch', (event) => {
+  // Não cacheia chamadas para APIs externas de imagens placeholder para evitar problemas de CORS/Opaque Responses no cache
+  if (event.request.url.includes('placehold.co')) {
+    return; 
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
@@ -44,17 +50,14 @@ self.addEventListener('fetch', (event) => {
           return response;
         }
 
-        // Clone the request because it's a stream
         const fetchRequest = event.request.clone();
 
         return fetch(fetchRequest).then(
           (response) => {
-            // Check if valid response
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
 
-            // Clone response to cache it
             const responseToCache = response.clone();
 
             caches.open(CACHE_NAME)
