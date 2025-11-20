@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qr-scan-pro-v7';
+const CACHE_NAME = 'qr-scan-pro-v8';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
