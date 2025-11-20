@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { ICONS } from '../constants';
 
-// Declare native API for TypeScript
+// Declare native API for TypeScript locally to avoid import errors
 declare class BarcodeDetector {
   constructor(options?: { formats: string[] });
   static getSupportedFormats(): Promise<string[]>;
@@ -21,10 +21,20 @@ const Scanner: React.FC<ScannerProps> = ({ onScan, onClose }) => {
   const detectionLoopRef = useRef<number | null>(null);
 
   const stopScanner = useCallback(() => {
+    // Stop all tracks to turn off camera light
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current.getTracks().forEach(track => {
+        track.stop();
+      });
       streamRef.current = null;
     }
+    
+    // Clear video source
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+
+    // Stop detection loop
     if (detectionLoopRef.current) {
       cancelAnimationFrame(detectionLoopRef.current);
       detectionLoopRef.current = null;
@@ -39,9 +49,8 @@ const Scanner: React.FC<ScannerProps> = ({ onScan, onClose }) => {
 
         // 1. Check for BarcodeDetector support (Android standard)
         if (!('BarcodeDetector' in window)) {
-            // Note: In a real production app, you would load a polyfill or jsQR here.
-            // For this standalone example, we enforce native support.
-            throw new Error("Este dispositivo não suporta a API nativa de leitura de códigos. Tente usar o Chrome atualizado no Android.");
+            // Fallback message or logic for unsupported browsers
+            throw new Error("Este dispositivo não suporta a API nativa de leitura. Use o Chrome no Android.");
         }
 
         // 2. Get Camera Stream
