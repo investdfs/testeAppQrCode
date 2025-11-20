@@ -1,0 +1,7 @@
+{
+  "name": "QR Scan Pro PWA",
+  "description": "A professional, minimalist QR Code scanner optimized for Android PWAs. Features offline support, fast scanning via native BarcodeDetector, and history management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
